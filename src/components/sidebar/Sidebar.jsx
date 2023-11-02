@@ -37,7 +37,7 @@ export const Sidebar = () => {
           <div className="title">USER</div>
           <li>
             <PersonIcon className="icon" />
-            <span>Profile</span>
+            <span>ProfileS</span>
           </li>
           <li>
             <LogoutIcon className="icon" />
