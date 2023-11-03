@@ -4,32 +4,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import Axios from "axios";
 import { Box } from "@mui/material";
 
-const columns = [
-  { field: "id", headerName: "ID", width: 210 },
-  { field: "firstName", headerName: "First name", width: 130 },
-  { field: "lastName", headerName: "Last name", width: 130 },
-  {
-    field: "age",
-    headerName: "Age",
-    type: "number",
-    width: 50,
-  } /*
-  {
-    field: "fullName",
-    headerName: "Full name",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-  },*/,
-  { field: "diagnosis", headerName: "Diagnosis", width: 130 },
-  { field: "doctorReq", headerName: "Doctor Requesting", width: 150 },
-  { field: "phoneNumber", headerName: "Phone Number", width: 130 },
-  { field: "status", headerName: "Status", width: 130 },
-  { field: "date", headerName: "Date", width: 130 },
-];
-
 export const Tables = () => {
   const [rows, setRows] = useState([]);
 
@@ -40,16 +14,16 @@ export const Tables = () => {
 
         // Update the rows state with the fetched data
         setRows(
-          response.data.map((other) => ({
-            id: other._id,
-            lastName: other.lastName,
-            firstName: other.firstName,
-            age: other.age,
-            diagnosis: other.diagnosis,
-            doctorReq: other.doctorRequesting,
-            phoneNumber: other.phoneNumber,
-            status: other.status,
-            date: other.date,
+          response.data.map((info) => ({
+            id: info._id,
+            lastName: info.lastName,
+            firstName: info.firstName,
+            age: info.age,
+            diagnosis: info.diagnosis,
+            doctorReq: info.doctorRequesting,
+            phoneNumber: info.phoneNumber,
+            status: info.status,
+            date: info.date,
           }))
         );
       } catch (error) {
@@ -59,6 +33,35 @@ export const Tables = () => {
 
     fetchInfo();
   }, []);
+  const columns = [
+    { field: "id", headerName: "ID", width: 90 },
+    { field: "firstName", headerName: "First name", width: 130 },
+    { field: "lastName", headerName: "Last name", width: 130 },
+    {
+      field: "age",
+      headerName: "Age",
+      type: "number",
+      width: 50,
+    },
+    { field: "diagnosis", headerName: "Diagnosis", width: 130 },
+    { field: "doctorReq", headerName: "Doctor Requesting", width: 150 },
+    { field: "phoneNumber", headerName: "Phone Number", width: 130 },
+    {
+      field: "status",
+      headerName: "Status",
+      width: 90,
+      cellClassName: (params) => {
+        if (params.value === "routine") {
+          return "status-routine";
+        } else if (params.value === "stat") {
+          return "status-stat";
+        } else {
+          return "status-default";
+        }
+      },
+    },
+    { field: "date", headerName: "Date", width: 170 },
+  ];
 
   return (
     <Box sx={{ height: "100%", width: "100%" }}>
