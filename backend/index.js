@@ -1,6 +1,7 @@
 import express, { urlencoded } from "express";
 import { PORT, mongoDBURL } from "./config.js";
 import newPatientRoute from './routes/newPatient.js'
+import newUserRoute from './routes/newUser.js'
 import { Patient } from "./models/patientModel.js";
 import mongoose from "mongoose";
 import {User} from "./models/userModel.js"
@@ -20,35 +21,8 @@ app.get("/", async (req, res) => {
 
 app.use('/newPatient', newPatientRoute);
 
-app.post("/newUser", async (req, res) => {
-  try {
-    // if (
-    //   !req.body.weight ||
-    //   !req.body.temperature ||
-    //   !req.body.severity ||
-    //   !req.body.currentMedications ||
-    //   !req.body.gender ||
-    //   !req.body.dateOfBirth ||
-    //   !req.body.name ||
-    //   !req.body.doctorAssigned
-    // ) {
-    //   return res.status(400).send({
-    //     message: "Send all required fields",
-    //   });
-    // }
-    const newUser = {
-      username : req.body.username,
-      password : req.body.password,
-      role : req.body.role,
-    };
-    const user = await User.create(newUser);
+app.use('/newUser',newUserRoute)
 
-    return res.status(201).send(user);
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).send({ message: error.message });
-  }
-});
 
 mongoose
   .connect(mongoDBURL)
@@ -62,17 +36,3 @@ mongoose
     console.log(error);
   });
 
-var currentdate = new Date();
-
-var datetime =
-  currentdate.getDay() +
-  "/" +
-  currentdate.getMonth() +
-  "/" +
-  currentdate.getFullYear() +
-  "@" +
-  currentdate.getHours() +
-  ":" +
-  currentdate.getMinutes() +
-  ":" +
-  currentdate.getSeconds();
