@@ -1,7 +1,9 @@
 import express, { urlencoded } from "express";
 import { PORT, mongoDBURL } from "./config.js";
-import mongoose from "mongoose";
+import newPatientRoute from './routes/newPatient.js'
 import { Patient } from "./models/patientModel.js";
+import mongoose from "mongoose";
+import {User} from "./models/userModel.js"
 import cors from "cors";
 
 const app = express();
@@ -16,7 +18,9 @@ app.get("/", async (req, res) => {
   res.json(patient);
 });
 
-app.post("/newPatient", async (req, res) => {
+app.use('/newPatient', newPatientRoute);
+
+app.post("/newUser", async (req, res) => {
   try {
     // if (
     //   !req.body.weight ||
@@ -32,21 +36,14 @@ app.post("/newPatient", async (req, res) => {
     //     message: "Send all required fields",
     //   });
     // }
-    const newPatient = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      dateOfBirth: req.body.dateOfBirth,
-      gender: req.body.gender,
-      age: req.body.age,
-      diagnosis: req.body.diagnosis,
-      doctorRequesting: req.body.doctorRequesting,
-      status: req.body.status,
-      phoneNumber: req.body.phoneNumber,
-      date: datetime,
+    const newUser = {
+      username : req.body.username,
+      password : req.body.password,
+      role : req.body.role,
     };
-    const patient = await Patient.create(newPatient);
+    const user = await User.create(newUser);
 
-    return res.status(201).send(patient);
+    return res.status(201).send(user);
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ message: error.message });
