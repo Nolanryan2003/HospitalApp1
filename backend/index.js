@@ -2,6 +2,8 @@ import express, { urlencoded } from "express";
 import { PORT, mongoDBURL } from "./config.js";
 import newPatientRoute from './routes/newPatient.js'
 import newUserRoute from './routes/newUser.js'
+import loginRoute from './routes/login.js'
+import updateRoute from './routes/updateRole.js'
 import { Patient } from "./models/patientModel.js";
 import mongoose from "mongoose";
 import {User} from "./models/userModel.js"
@@ -22,6 +24,11 @@ app.get("/", async (req, res) => {
 app.use('/newPatient', newPatientRoute);
 
 app.use('/newUser',newUserRoute)
+
+app.use('/login',loginRoute)
+
+app.use('/update',updateRoute)
+
 
 
 mongoose
