@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const patientSchema = mongoose.Schema(
+const mainPatientSchema = mongoose.Schema(
   {
     firstName: {
       type: String,
@@ -10,36 +10,51 @@ const patientSchema = mongoose.Schema(
       type: String,
       required: false,
     },
-    gender: {
-      type: String,
-      required: false,
-    },
     age: {
-      type: Number,
+      type: String,
       required: false,
     },
     dateOfBirth: {
       type: String,
       required: false,
     },
-    diagnosis: {
+    gender: {
+      type: String,
+      required: false,
+    },
+    currentMedications: {
       type: Array,
       required: false,
     },
-    doctorRequesting: {
+    allergies: {
+      type: Array,
+      required: false,
+    },
+    pastMedicalConditions: {
+      type: Array,
+      required: false,
+    },
+    severity: {
       type: String,
       required: false,
     },
-    status: {
-      type: String,
-      enum: ["stat", "routine"],
+    bloodPressure: {
+      type: Number,
       required: false,
     },
-    phoneNumber: {
-      type: String,
+    temperature: {
+      type: Number,
       required: false,
     },
-    date: {
+    weight: {
+      type: Number,
+      required: false,
+    },
+    surgicalHistory: {
+      type: Array,
+      required: false,
+    },
+    doctorAssigned: {
       type: String,
       required: false,
     },
@@ -49,4 +64,4 @@ const patientSchema = mongoose.Schema(
   }
 );
 
-export const Patient = mongoose.model("Patients", patientSchema);
+export const MainPatient = mongoose.model("MainPatients", mainPatientSchema);

@@ -1,8 +1,10 @@
 import express, { urlencoded } from "express";
 import { PORT, mongoDBURL } from "./config.js";
+import newPatientRoute from "./routes/patientRoute.js";
+import authRoute from "./routes/authRoute.js";
 import mongoose from "mongoose";
-import { Patient } from "./models/patientModel.js";
 import cors from "cors";
+import consultRoute from "./routes/consultsRoute.js";
 
 const app = express();
 
@@ -10,48 +12,11 @@ app.use(express.json());
 app.use(urlencoded({ extended: true }));
 app.use(cors());
 
-app.get("/", async (req, res) => {
-  const patient = await Patient.find();
+app.use("/newPatient", newPatientRoute);
 
-  res.json(patient);
-});
+app.use("/consults", consultRoute);
 
-app.post("/newPatient", async (req, res) => {
-  try {
-    // if (
-    //   !req.body.weight ||
-    //   !req.body.temperature ||
-    //   !req.body.severity ||
-    //   !req.body.currentMedications ||
-    //   !req.body.gender ||
-    //   !req.body.dateOfBirth ||
-    //   !req.body.name ||
-    //   !req.body.doctorAssigned
-    // ) {
-    //   return res.status(400).send({
-    //     message: "Send all required fields",
-    //   });
-    // }
-    const newPatient = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      dateOfBirth: req.body.dateOfBirth,
-      gender: req.body.gender,
-      age: req.body.age,
-      diagnosis: req.body.diagnosis,
-      doctorRequesting: req.body.doctorRequesting,
-      status: req.body.status,
-      phoneNumber: req.body.phoneNumber,
-      date: datetime,
-    };
-    const patient = await Patient.create(newPatient);
-
-    return res.status(201).send(patient);
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).send({ message: error.message });
-  }
-});
+app.use("/auth", authRoute);
 
 mongoose
   .connect(mongoDBURL)
@@ -64,19 +29,3 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-
-var currentdate = new Date();
-
-var datetime =
-  currentdate.getMonth() +
-  1 +
-  "/" +
-  currentdate.getDate() +
-  "/" +
-  currentdate.getFullYear() +
-  "@" +
-  currentdate.getHours() +
-  ":" +
-  currentdate.getMinutes() +
-  ":" +
-  currentdate.getSeconds();
