@@ -1,28 +1,19 @@
-.sidebar {
+.hospitalSidebar {
   flex: 1;
+
   border-right: 0.5px solid lightgray;
   min-height: 100vh;
   background-color: white;
   .top {
     height: 50px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-
+    flex-direction: column;
     .logo {
       font-size: 20px;
       font-weight: bold;
-      color: #77cd52;
+      color: #2fafef;
+      text-align: center;
     }
-  }
-
-  hr {
-    height: 0;
-    border: 0.5px solid lightgray;
-  }
-
-  .center {
-    padding-left: 10px;
 
     ul {
       list-style: none;
@@ -44,7 +35,7 @@
         cursor: pointer;
 
         &:hover {
-          background-color: #d0f3c1;
+          background-color: #88cbed;
         }
 
         .dashboardLink {
@@ -54,7 +45,7 @@
 
       .icon {
         font-size: 18px;
-        color: #77cd52;
+        color: #2fafef;
       }
 
       span {
@@ -62,6 +53,36 @@
         font-weight: bold;
         color: #888;
         margin-left: 10px;
+      }
+    }
+  }
+
+  hr {
+    height: 0;
+    border: 0.5px solid lightgray;
+  }
+
+  .center {
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+
+    .forms {
+      display: flex;
+      flex-direction: column;
+
+      button {
+        cursor: pointer;
+        border: none;
+        background-color: #2fafef;
+        color: white;
+        transition: background-color 0.3s ease;
+        padding: 5px;
+        border-radius: 3px;
+        margin-top: 10px;
+      }
+      button:hover {
+        background-color: #88cbed;
       }
     }
   }

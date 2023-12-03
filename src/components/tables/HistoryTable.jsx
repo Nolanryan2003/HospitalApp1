@@ -1,21 +1,22 @@
-import "./Tables.scss";
+import "./HistoryTable.scss";
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Axios from "axios";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-export const Tables = () => {
+export const HistoryTable = () => {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
     const fetchInfo = async () => {
       try {
-        const response = await Axios.get("http://localhost:5555/consults");
+        const response = await Axios.get(
+          "http://localhost:5555/consults/deletedconsult"
+        );
         setRows(
           response.data.map((consult) => ({
-            id: consult._id,
-            patientId: consult.patientReference._id,
+            id: consult.patientReference._id,
             lastName: consult.patientReference.lastName,
             firstName: consult.patientReference.firstName,
             age: consult.patientReference.age,
@@ -35,8 +36,7 @@ export const Tables = () => {
     fetchInfo();
   }, []);
   const columns = [
-    { field: "id", headerName: "ID", width: 125 },
-    { field: "patientId", headerName: "PatientId", width: 100 },
+    { field: "id", headerName: "ID", width: 225 },
     { field: "firstName", headerName: "First name", width: 130 },
     { field: "lastName", headerName: "Last name", width: 130 },
     {
@@ -52,14 +52,9 @@ export const Tables = () => {
       field: "status",
       headerName: "Status",
       width: 90,
-      cellClassName: (params) => {
-        if (params.value === "routine") {
-          return "status-routine";
-        } else if (params.value === "stat") {
-          return "status-stat";
-        } else {
-          return "status-default";
-        }
+      cellClassName: "cell",
+      renderCell: (params) => {
+        return <div className="completeButton">Completed</div>;
       },
     },
   ];
@@ -68,21 +63,15 @@ export const Tables = () => {
     {
       field: "action",
       headerName: "Action",
-      width: 200,
+      width: 100,
       renderCell: (params) => {
         return (
           <div className="cellAction">
             <div
               className="viewButton"
-              onClick={() => handleViewClick(params.row.patientId)}
+              onClick={() => handleViewClick(params.row.id)}
             >
               View
-            </div>
-            <div
-              className="completeButton"
-              onClick={() => handleCompleteClick(params.row.id)}
-            >
-              Complete
             </div>
           </div>
         );
@@ -94,23 +83,6 @@ export const Tables = () => {
 
   const handleViewClick = (patientId) => {
     navigate(`/users/${patientId}`);
-  };
-
-  const handleCompleteClick = async (consultId) => {
-    try {
-      // Making an API call to the delete endpoint
-      await Axios.post("http://localhost:5555/consults/historyconsult", {
-        id: consultId,
-      });
-
-      // Updating the state to remove the deleted consultation
-      setRows(rows.filter((row) => row.id !== consultId));
-
-      // Optionally, display a success message or update the UI accordingly
-    } catch (error) {
-      console.error("Error completing consultation:", error);
-      // Optionally, display an error message to the user
-    }
   };
 
   return (

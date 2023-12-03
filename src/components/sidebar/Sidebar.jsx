@@ -1,4 +1,5 @@
 import "./Sidebar.scss";
+import { Link } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SettingsIcon from "@mui/icons-material/Settings";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
@@ -11,15 +12,17 @@ export const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="top">
-        <span className="logo">HospitalMD</span>
+        <span className="logo">SpecialtyMD</span>
       </div>
       <hr />
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
           <li>
-            <DashboardIcon className="icon" />
-            <span>Dashboard</span>
+            <Link to={"/"} className="dashboardLink">
+              <DashboardIcon className="icon" />
+              <span>Dashboard</span>
+            </Link>
           </li>
           <p className="title">LIST</p>
           <li>
@@ -27,8 +30,10 @@ export const Sidebar = () => {
             <span>Orders</span>
           </li>
           <li>
-            <HistoryIcon className="icon" />
-            <span>History</span>
+            <Link to={"/history"} className="dashboardLink">
+              <HistoryIcon className="icon" />
+              <span>History</span>
+            </Link>
           </li>
           <li>
             <NotificationsNoneIcon className="icon" />
@@ -37,7 +42,7 @@ export const Sidebar = () => {
           <div className="title">USER</div>
           <li>
             <PersonIcon className="icon" />
-            <span>ProfileS</span>
+            <span>Profile</span>
           </li>
           <li>
             <LogoutIcon className="icon" />

@@ -1,0 +1,52 @@
+.hospitalLogin {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f2f2;
+
+  .hospitalLoginContainer {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    padding: 40px;
+    font-size: 1em;
+    background-color: white;
+
+    h2 {
+      text-align: center;
+      color: #2fafef;
+    }
+
+    input,
+    select,
+    button {
+      font-size: 1.1rem;
+      padding: 15px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background-color: #2fafef;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    .link {
+      color: #4caf50;
+    }
+
+    button:hover {
+      background-color: #88cbed; /* Darker shade on hover */
+    }
+  }
+}
